@@ -4,33 +4,32 @@ public class _1mergeSort {
         mergeSort(a, 0, a.length-1);
         for(int i:a)System.out.print(i+" ");
     }
-    public static void mergeSort(int a[],int si,int ed) {
-        if(si<=ed)return;
-        //< for that ase if we do not have any ele(emp array)
-        int mid=(si+ed)/2;
-        mergeSort(a, si, mid);
-        mergeSort(a, mid+1, ed);
-        merge(a, si, mid, ed);
+    public static void mergeSort(int arr[],int st,int ed) {
+        if(st>=ed)return;
+        int mid=(st+ed)/2;
+        mergeSort(arr, st, mid);
+        mergeSort(arr, mid+1,ed);
+        merge(arr,st,mid,ed);
     }
-    public static void merge(int[] a,int si,int mid,int ed) {
-        int size=ed-si+1;//10th idx -8th idx is 2 but it has 3 ele so +1
-        int i=si,j=mid+1,k=0;
-        int output[]=new int[size];
+    public static void merge(int[] arr,int st,int mid, int ed) {
+        int n=ed-st+1;
+        int i=st,j=mid+1,k=0;
+        int output[]=new int[n];
         while(i<=mid&&j<=ed){
-            if(a[i]>=a[j]){
-                output[k++]=a[j++];
-            }else{
-                output[k++]=a[i++];
-            }
-
+            if(arr[i]<arr[j])
+                output[k++]=arr[i++];
+            else  
+                output[k++]=arr[j++];  
         }
         while(i<=mid){
-            output[k++]=a[i++];
+            output[k++]=arr[i++];
         }
         while(j<=ed){
-            output[k++]=a[j++];
+            output[k++]=arr[j++];
         }
+
+        //for(int x=0;x<output.length;x++)arr[st++]=output[x];
         int m=0;
-        for(int x=si;x<=ed;x++)a[x]=output[m++];
+        for(int x=st;x<=ed;x++)arr[x]=output[m++];
     }
 }

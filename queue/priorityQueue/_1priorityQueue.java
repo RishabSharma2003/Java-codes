@@ -1,98 +1,123 @@
 import java.util.*;
 public class _1priorityQueue {
     public static void main(String[] args) {
-        //pQueue x=new pQueue();
-        // x.heap.add(4);
-        // x.heap.add(5);
-        // x.heap.add(10);
-        // x.heap.add(8);
-        // x.heap.add(15);
-        // x.heap.add(20);
-        // x.heap.add(35);
-        // x.print();
-        // x.removeMin();
-        // x.print();
-        
+        Priority_Queue<String> pq=new Priority_Queue<>();
+        pq.insert("abc", 5);
+        pq.insert("df", 2);
+        pq.insert("xuz", 3);
+        pq.insert("nm", 6);
+        pq.insert("yr", 1);
 
-        //HEAP SORT
-        pQueue pq=new pQueue();
-        int arr[]={5,1,9,2,0};
-        for(int i=0;i<arr.length;i++){
-            pq.insert(arr[i]);
-        }
-        while(!pq.isEmpty()){
-            System.out.print(pq.removeMin()+" ");
+        while (!pq.isEmpty()) {
+            System.out.println(pq.removeMin());
         }
     }
 }
-class pQueue {
-    //min priority queue
-    ArrayList<Integer> heap;
-    pQueue(){
+
+
+class Priority_Queue<T>{
+    //Element for type class T and to get priority of ele
+    private ArrayList<Element<T>> heap;
+
+    Priority_Queue(){
         heap=new ArrayList<>();
     }
-    public boolean isEmpty(){
-        return heap.size()==0;
-    }
-    public int size(){
-        return heap.size();
-    }
-    public int getMin(){
-        // if(isEmpty()){
-        //     throw new priorityQueueException();
-        // }
-        return heap.get(0);
-    }
-    public void print(){
-        System.out.println(heap);
-    }
-    public void insert(int ele){    
-        heap.add(ele);
-        int childIdx=this.size()-1;
+
+    //insert
+    public void insert(T value,int priority){
+        //added at last
+        Element<T> e=new Element<>(value, priority);
+        heap.add(e);
+
+        //process of upheapify goes here
+        //compare the ele with it parent
+        int childIdx=heap.size()-1;
         int parentIdx=(childIdx-1)/2;
+        //comapre if childidx priority is lesser(minheap) than parent then swap on basis of priority
         while(childIdx>0){
-            if(heap.get(childIdx)<heap.get(parentIdx)){
-            int temp=heap.get(childIdx);
-            heap.set(childIdx,heap.get(parentIdx));
-            heap.set(parentIdx,temp);
-            //repeat
-            childIdx=parentIdx;
-            parentIdx=(childIdx-1)/2;
+            if(heap.get(childIdx).priority<heap.get(parentIdx).priority){
+                Element<T> temp=heap.get(childIdx);
+                heap.set(childIdx,heap.get(parentIdx));
+                heap.set(parentIdx,temp);
+
+                childIdx=parentIdx;
+                parentIdx=(childIdx-1)/2;
             }else{
                 return;
             }
         }
+
     }
-    public int removeMin(){
-        // if(isEmpty()){
-        //     throw new priorityQueueException();
-        // }
-        int temp=heap.get(0);
-        heap.set(0,heap.get(size()-1));
-        heap.remove(size()-1);
-        int index=0;
-        int minIdx=index;
-        int leftChildIdx=1;
-        int rightChildIdx=2;
-        while(leftChildIdx<size()){
-            if(heap.get(index)>heap.get(leftChildIdx)){
-                minIdx=leftChildIdx;
+    //get
+    public T getMin(){
+        return heap.get(0).value;
+    }
+    //remove
+    public T removeMin(){
+        if(isEmpty())return null;
+
+        //getted the value
+        Element<T> removed=heap.get(0);
+        T ans=removed.value;
+
+        //putted last val to first and removed last value
+        heap.set(0,heap.get(heap.size()-1));
+        heap.remove(heap.size()-1);
+
+        int parentIdx=0;
+        int childIdxLEFT=2*parentIdx+1;
+        int childIdxRIGHT=2*parentIdx+2;
+
+        while(childIdxLEFT<heap.size()){
+            int minIdx=parentIdx;
+            //dono me se jo prority kam h uski value uper rahegi 
+            //if child prority is 30 and 70 to 30 uperjega parent ki jagh
+            if(heap.get(childIdxLEFT).priority<heap.get(minIdx).priority){
+                //calculating min
+                minIdx=childIdxLEFT;
+            }//if right child exist then only compare
+            if(childIdxRIGHT<heap.size() && heap.get(childIdxRIGHT).priority<heap.get(minIdx).priority){
+                //calculating min if it is at right
+                minIdx=childIdxRIGHT;
             }
-            //if right child exist
-            if(rightChildIdx<size())if(heap.get(minIdx)>heap.get(rightChildIdx)){
-                minIdx=rightChildIdx;
+
+            //swap with parent
+            Element<T> temp=heap.get(parentIdx);
+            heap.set(parentIdx,heap.get(minIdx));
+            heap.set(minIdx, temp);
+
+            if (parentIdx==minIdx){
+                //apni sahi pos per pauch gaya h before reaching the end point
+                return ans;
             }
-            //same priority
-            if(minIdx==index)break;
-            int temp1=heap.get(index);
-            heap.set(index,heap.get(minIdx));
-            heap.set(minIdx,temp1);
-            index=minIdx;
-            leftChildIdx=2*index+1;
-            rightChildIdx=2*index+2;
+            parentIdx=minIdx;
+            childIdxLEFT=2*parentIdx+1;
+            childIdxRIGHT=2*parentIdx+2;
         }
-        return temp;
+
+
+        //returned
+        return ans;
+    }
+    //size
+    public int size(){
+        return heap.size();
+    }
+    //is empty
+    public boolean isEmpty(){
+        if(size()==0) {
+            return true;
+        }
+        return false;
+    }
+
+}
+class Element<T>{
+    T value;
+    int priority;
+
+    public Element(T value,int priority){
+        this.value=value;
+        this.priority=priority;
     }
 }
-
-class priorityQueueException extends Exception{}

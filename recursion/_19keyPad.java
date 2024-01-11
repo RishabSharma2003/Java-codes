@@ -17,6 +17,7 @@ public class _19keyPad {
         //5->53
         //49-48=1(idx)
         String pressKey=key[ch-'0'];
+        System.out.println("pressedKey "+pressKey);
         for(int i=0;i<pressKey.length();i++){
             keyAns(s.substring(1),ans+pressKey.charAt(i));
         }

@@ -18,7 +18,6 @@ public class _1towerHnnoi {
 
 
     public static void toh(int n,char start,char mid,char end){
-        System.out.println(n);
         if(n<=0){
             System.out.println("illegal entry");
         }

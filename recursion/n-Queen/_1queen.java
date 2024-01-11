@@ -4,9 +4,9 @@ public class _1queen{
         int board[][]=new int[n][n];
         boolean digonal[]=new boolean[n*n-1];
         boolean Reversedigonal[]=new boolean[n*n-1];
-        int ans[][]=new int[n][n];
         boolean cols[]=new boolean[n];
         queen(board,digonal,Reversedigonal,0,cols);
+        //if(n==1) one queen is to be placed and it is basecase as n*n-1 becomes 0
     }
     public static void queen(int [][]board,boolean []digonal,
             boolean []Reversedigonal,int row,boolean []cols) {

@@ -16,7 +16,7 @@ public class _22editDistance {
             //s1 gh s2 igh
             //insert
             int op1=ED(s1,s2.substring(1));
-            //s1 xgrt s2 rt delete x&g
+            //s1 xgrt s2 rt delete x&gv'
             //del
             int op2=ED(s1.substring(1),s2);
             // s1 abc s2 dbc replace a with c 
