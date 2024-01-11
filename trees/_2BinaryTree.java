@@ -26,7 +26,7 @@ public class _2BinaryTree {
         // System.out.println(ans.isBal);
         // pair ans=diameterBetter(root);
         // System.out.println(ans.diameter);
-        print(root);
+        // print(root);
     }
 
     // take level wise
@@ -362,7 +362,32 @@ public class _2BinaryTree {
         return ans;
     }
 
-    //make a tree from preorder and inorder
+    // make a tree from preorder and inorder
+    // public static BinaryTreeNode<Integer> makeTreeHelper(int []pre,int []in,int siPre,int edPre,int siIn,int edIn){
+    //     if(siPre>edPre)return null;//base
+
+    //     int rootData=pre[siPre];
+    //     BinaryTreeNode<Integer> root=new BinaryTreeNode<>(rootData);
+
+    //     int siPreLeft;
+    //     int siInLeft;
+    //     int eiPreLeft;
+    //     int eiInleft;
+    //     int siPreRight;
+    //     int siInRight;
+    //     int eiPreRight;
+    //     int eiInRight;
+
+    //     BinaryTreeNode<Integer> left=makeTreeHelper(pre, in, siPreLeft, eiPreLeft, siInLeft, edInR)
+
+    // }
+    // public static BinaryTreeNode<Integer> makeTree(){
+    //     int pre[]={1,2,4,5,3,6,7};
+    //     int in[]= {4,2,5,1,6,3,7};
+
+    //     BinaryTreeNode<Integer> root=makeTreeHelper(pre,in,0,pre.length-1,0,in.length-1);
+    //     return root;
+    // }
     
 }
 
